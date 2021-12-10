@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Boogaloo&family=Lato&family=Meow+Script&display=swap');
+
+body {
+  margin: 0;
+  background-color: #fdf0e2;
+}
+
+#nav {
+  display: flex;
+  flex-direction: row;
+  margin: 10px;
+}
+.b-name {
+  font-family: 'Boogaloo', cursive;
+  font-family: 'Lato', sans-serif;
+  font-family: 'Meow Script', cursive;
+  font-size: 30px;
+}
+#nav div {
+  display: flex;
+  flex-direction: row;
+  margin-left: auto;
+  padding-left: 40px;
+  font-weight: bold;
+}

@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Boogaloo&family=Lato&family=Lora&family=Meow+Script&display=swap');
+
+.footer-lay {
+  background-color: #fdf0e2;
+  flex: 1;
+  bottom: 0;
+  position: fixed;
+  width: 100%;
+}
+.ab-img {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  font-family: sofia-pro, sans-serif;
+  width: 50%;
+  margin: 10px;
+  font-weight: 200;
+}
+.about-us {
+  padding-left: 30px;
+}
+.madeby {
+  text-align: center;
+  padding-bottom: 10px;
+}
