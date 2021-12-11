@@ -1,70 +1,107 @@
-# Getting Started with Create React App
+## Description
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<hr>
+Gifteria is your go-to for gifting. You can create personalized and custom gift boxes or choose from a prepacked box for friends and family.
 
-## Available Scripts
+## API routes (back-end)
 
-In the project directory, you can run:
+<hr>
+- POST /auth/signup
+- body:
 
-### `yarn start`
+- name
+- surname
+- address
+- email
+- password
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- renders SignUp.jsx
+- redirects to "/signup" if user logged in
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- POST /auth/signin
 
-### `yarn test`
+- body:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+  - email
+  - password
 
-### `yarn build`
+  - redirects to "/cart" if user logged in
+  - renders SignUp.jsx
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- POST /auth/signout
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+  - body: empty
+  - redirect "/signup"
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- GET /products/
 
-### `yarn eject`
+- render Products.jsx
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- GET /products/:productId
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- render ProductDetails.jsx
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- GET /categories
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- render Categories.jsx
 
-## Learn More
+<!-- - GET /cart
+  - render Cart.jsx -->
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+<!-- - POST /cart/delete
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+  - boxes: delete
+  - redirects "/cart"
 
-### Code Splitting
+- POST /cart/upload
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+  - img: req.file.path
+  - redirects "/cart" -->
 
-### Analyzing the Bundle Size
+## Models
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+<hr>
 
-### Making a Progressive Web App
+- User new Schema ({
+  username: {
+  type: String,
+  required: true,
+  },
+  email: {
+  type: String,
+  required: true,
+  },
+  password: {
+  type: String,
+  required: true,
+  },
+  img: {
+  type: String,
+  default: 'images/profile.png',
+  },
+  products: [
+  {
+  type: Schema.Types.ObjectId,
+  ref: 'Product',
+  },
+  ],
+  });
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- Product new Schema ({
+  name: String,
+  price: Number,
+  image: String,
+  description: String,
+  category: {
+  type: Schema.Types.ObjectId,
+  ref: 'Category',
+  },
+  });
 
-### Advanced Configuration
+- Category new Schema ({
+  name: String,
+  image: String,
+  description: String,
+  });
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+u
