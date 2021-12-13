@@ -1,6 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import './footer.css';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (
@@ -8,7 +8,10 @@ const Footer = () => {
       <hr />
       <hr />
       <div className="ab-img">
-        <img src="/image/logo.png" height="60px" alt="logo"></img>
+        <Link to="/">
+          <img src="/image/logo.png" height="60px" alt="logo" />
+        </Link>
+
         <div className="about-us">
           About Us
           <div>
@@ -20,7 +23,9 @@ const Footer = () => {
       </div>
       <div className="madeby">
         Made by&nbsp;
-        <Link to="https://www.linkedin.com/in/nevrakaya/">Nevra</Link>
+        <a href="https://www.linkedin.com/in/nevrakaya/" target="_blank rel=''">
+          Nevra
+        </a>
       </div>
     </div>
   );

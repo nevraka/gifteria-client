@@ -4,7 +4,7 @@
   background-color: #fdf0e2;
   flex: 1;
   bottom: 0;
-  position: fixed;
+  /* position: fixed; */
   width: 100%;
 }
 .ab-img {
