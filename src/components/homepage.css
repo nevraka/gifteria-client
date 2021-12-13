@@ -1,0 +1,22 @@
+.title {
+  text-align: center;
+  font-size: x-large;
+  padding-bottom: 30px;
+}
+.category-image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.one-category {
+  display: flex;
+  flex-direction: row;
+  margin: 20px;
+  height: auto;
+  justify-content: center;
+}
+.one-category div {
+  width: 100%;
+  height: auto;
+}
