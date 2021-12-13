@@ -1,15 +1,26 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './header.css';
 
 const Header = () => {
   return (
     <div>
       <nav id="nav">
-        <img src="/image/logo.png" height="60px" alt="logo"></img>
+        <Link to="/">
+          <img src="/image/logo.png" height="60px" alt="logo" />
+        </Link>
         <div className="b-name">Gifteria</div>
         <div>
-          <div>Cart</div>
-          <div>Login</div>
+          <div>
+            <Link style={{ textDecoration: 'none' }} to="/cart">
+              Cart
+            </Link>
+          </div>
+          <div>
+            <Link style={{ textDecoration: 'none' }} to="/signin">
+              Login
+            </Link>
+          </div>
         </div>
       </nav>
       <hr />

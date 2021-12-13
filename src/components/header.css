@@ -1,10 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Boogaloo&family=Lato&family=Meow+Script&display=swap');
 
-body {
-  margin: 0;
-  background-color: #fdf0e2;
-}
-
 #nav {
   display: flex;
   flex-direction: row;
