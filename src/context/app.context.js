@@ -6,6 +6,7 @@ const UserContext = createContext();
 
 const UserProviderWrapper = ({ children }) => {
   const [categories, setCategories] = useState([]);
+  const [fetchingUser, setFetchingUser] = useState(true);
   const [user, setUser] = useState(null);
 
   useEffect(() => {
@@ -17,6 +18,23 @@ const UserProviderWrapper = ({ children }) => {
     };
 
     getData();
+  }, []);
+
+  //we make the user requst here to know if the user is logged in or not
+  useEffect(() => {
+    const getUserData = async () => {
+      try {
+        let userResponse = await axios.get(`${API_URL}/user`, {
+          withCredentials: true,
+        });
+        setFetchingUser(false);
+        setUser(userResponse.data);
+      } catch (err) {
+        // the request will fail if the user is not logged in
+        setFetchingUser(false);
+      }
+    };
+    getUserData();
   }, []);
 
   return (

@@ -7,7 +7,7 @@ import { UserContext } from '../context/app.context';
 import { Link } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import './products.css';
-import { yellow } from '@mui/material/colors';
+import { orange } from '@mui/material/colors';
 import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 
@@ -31,12 +31,15 @@ const HomePage = () => {
   const category = categories.find((c) => c._id === categoryId);
 
   const ColorButton = styled(Button)(({ theme }) => ({
-    color: theme.palette.getContrastText(yellow[500]),
-    backgroundColor: yellow[500],
+    color: theme.palette.getContrastText(orange[500]),
+    backgroundColor: orange[500],
+    color: 'white',
     '&:hover': {
-      backgroundColor: yellow[700],
+      backgroundColor: orange[700],
     },
     borderRadius: '10px',
+    padding: '10px',
+    marginTop: '5px',
   }));
   return (
     <div>
@@ -51,7 +54,7 @@ const HomePage = () => {
         {category && (
           <>
             <Grid item xs={6}>
-              <h1 className="name">
+              <h1 className="pname">
                 {category.name}
                 <div className="desc">{category.description}</div>
               </h1>
@@ -62,7 +65,7 @@ const HomePage = () => {
                   className="category-image"
                   src={category.image}
                   alt="cat"
-                  style={{ height: '500px', width: '600px' }}
+                  style={{ height: '400px', width: '700px' }}
                 ></img>
               </div>
             </Grid>

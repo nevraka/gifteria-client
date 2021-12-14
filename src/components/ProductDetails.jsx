@@ -26,11 +26,14 @@ const ProductDetails = ({ handleAddToCart }) => {
 
   const ColorButton = styled(Button)(({ theme }) => ({
     color: theme.palette.getContrastText(purple[500]),
+    color: 'white',
     backgroundColor: purple[500],
     '&:hover': {
       backgroundColor: purple[700],
     },
     borderRadius: '10px',
+    padding: '10px',
+    marginTop: '5px',
   }));
 
   return (

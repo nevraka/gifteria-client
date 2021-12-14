@@ -13,9 +13,12 @@ const HomePage = () => {
   const ColorButton = styled(Button)(({ theme }) => ({
     color: theme.palette.getContrastText(green[500]),
     backgroundColor: green[500],
+    color: 'white',
     '&:hover': {
       backgroundColor: green[700],
     },
+    padding: '10px',
+    marginTop: '5px',
   }));
   return (
     <div style={{ padding: 20 }}>
