@@ -1,68 +1,53 @@
-import React, { useEffect, useContext } from 'react';
-import axios from 'axios';
-import { API_URL } from '../config';
+import React, { useContext } from 'react';
 import './homepage.css';
 import { UserContext } from '../context/app.context';
 import Grid from '@mui/material/Grid';
-import { styled } from '@mui/material/styles';
-import Paper from '@mui/material/Paper';
 import { Link } from 'react-router-dom';
+import { green } from '@mui/material/colors';
+import { styled } from '@mui/material/styles';
+import Button from '@mui/material/Button';
 
 const HomePage = () => {
-  const { categories, setCategories } = useContext(UserContext);
+  const { categories } = useContext(UserContext);
 
-  const Item = styled(Paper)(({ theme }) => ({
-    ...theme.typography.body2,
-    padding: theme.spacing(1),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
+  const ColorButton = styled(Button)(({ theme }) => ({
+    color: theme.palette.getContrastText(green[500]),
+    backgroundColor: green[500],
+    '&:hover': {
+      backgroundColor: green[700],
+    },
   }));
-
-  useEffect(() => {
-    const getData = async () => {
-      let response = await axios.get(`${API_URL}/categories`, {
-        withCredentials: true,
-      });
-      setCategories(response.data);
-    };
-
-    getData();
-  }, []);
-
   return (
-    <div>
-      <div className="title">Box Ideas for the week</div>
-      <div>
-        <Grid container spacing={2} columns={16}>
-          {categories &&
-            categories.map((c, i) => {
-              return (
-                <div className="one-category" key={i}>
-                  <Grid item xs={6}>
-                    <Item>
-                      <div>
-                        {c.name}
-                        <div>{c.description}</div>
-                        <Link to={`/category/${c._id}`}>
-                          <button>Check It Out</button>
-                        </Link>
-                      </div>
-                    </Item>
-                  </Grid>
-                  <Grid item xs={6}>
-                    <Item>
-                      <img
-                        className="category-image"
-                        src={c.image}
-                        alt="cat"
-                      ></img>
-                    </Item>
-                  </Grid>
-                </div>
-              );
-            })}
-        </Grid>
-      </div>
+    <div style={{ padding: 20 }}>
+      <h1 className="title">Gift Ideas for the week</h1>
+      <Grid container spacing={2}>
+        {categories &&
+          categories.map((c, i) => {
+            return (
+              <>
+                <Grid item xs={6} order={i % 2 === 0 ? i * 2 : i * 2 + 1}>
+                  <div className="name">{c.name}</div>
+                  <div className="desc">{c.description}</div>
+                  <Link
+                    to={`/category/${c._id}`}
+                    style={{ textDecorationLine: 'none' }}
+                  >
+                    <ColorButton>Check It Out</ColorButton>
+                  </Link>
+                </Grid>
+                <Grid item xs={6} order={i % 2 === 0 ? i * 2 + 1 : i * 2}>
+                  <div>
+                    <img
+                      className="category-image"
+                      src={c.image}
+                      alt="cat"
+                    ></img>
+                  </div>
+                </Grid>
+              </>
+            );
+          })}
+      </Grid>
     </div>
   );
 };
