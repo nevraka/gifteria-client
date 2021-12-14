@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import SignUp from './components/SignUp';
 import SignIn from './components/SignIn';
@@ -13,6 +13,7 @@ import { UserContext } from './context/app.context';
 function App() {
   const { user } = useContext(UserContext);
   const navigate = useNavigate();
+  const [myError, setMyError] = useState(null);
 
   const handleAddToCart = () => {
     if (!user) {
@@ -27,7 +28,10 @@ function App() {
       <Header />
       <Routes>
         <Route path="/cart" element={<Cart />}></Route>
-        <Route path="/signin" element={<SignIn />}></Route>
+        <Route
+          path="/signin"
+          element={<SignIn setMyError={setMyError} />}
+        ></Route>
         <Route path="/signup" element={<SignUp />}></Route>
         <Route path="/products" element={<Products />}></Route>
         <Route
