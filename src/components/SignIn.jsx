@@ -8,31 +8,34 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Link, useNavigate } from 'react-router-dom';
-//import axios from 'axios';
-//import { API_URL } from '../config';
+import axios from 'axios';
+import { useContext } from 'react';
+import { API_URL } from '../config';
+import { UserContext } from '../context/app.context';
 
 const theme = createTheme();
 
-const SignIn = () => {
+const SignIn = ({ setMyError }) => {
   const navigate = useNavigate();
+  const { setUser } = useContext(UserContext);
 
-  // const handleSignIn = async (e) => {
-  //   e.preventDefault();
-  //   try {
-  //     let newUser = {
-  //       email: e.target.email.value,
-  //       password: e.target.password.value,
-  //     };
+  const handleSignIn = async (e) => {
+    e.preventDefault();
+    try {
+      let newUser = {
+        email: e.target.email.value,
+        password: e.target.password.value,
+      };
 
-  //     let response = await axios.post(`${API_URL}/signin`, newUser, {
-  //       withCredentials: true,
-  //     });
-  // //     setUser(response.data);
-  // //   } catch (err) {
-  // //     console.log(err.response);
-  // //     setMyError(err.response.data.error);
-  // //   }
-  // // };
+      let response = await axios.post(`${API_URL}/signin`, newUser, {
+        withCredentials: true,
+      });
+      setUser(response.data);
+    } catch (err) {
+      console.log(err.response);
+      setMyError(err.response.data.error);
+    }
+  };
 
   navigate('/');
   return (
@@ -52,7 +55,7 @@ const SignIn = () => {
           </Typography>
           <Box
             component="form"
-            //onSubmit={handleSignIn}
+            onSubmit={handleSignIn}
             noValidate
             sx={{ mt: 1 }}
           >
