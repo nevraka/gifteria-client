@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { API_URL } from '../config';
@@ -7,9 +7,13 @@ import { UserContext } from '../context/app.context';
 import { Link } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import './products.css';
+import { yellow } from '@mui/material/colors';
+import { styled } from '@mui/material/styles';
+import Button from '@mui/material/Button';
 
 const HomePage = () => {
-  const { products, setProducts } = useContext(UserContext);
+  const [products, setProducts] = useState([]);
+  const { categories } = useContext(UserContext);
   const { categoryId } = useParams();
 
   useEffect(() => {
@@ -24,33 +28,68 @@ const HomePage = () => {
     getData();
   }, [categoryId]);
 
+  const category = categories.find((c) => c._id === categoryId);
+
+  const ColorButton = styled(Button)(({ theme }) => ({
+    color: theme.palette.getContrastText(yellow[500]),
+    backgroundColor: yellow[500],
+    '&:hover': {
+      backgroundColor: yellow[700],
+    },
+    borderRadius: '10px',
+  }));
   return (
     <div>
-      <div className="title">Our Ideas</div>
-      <div className="container">
-        <Grid container spacing={1}>
-          {products &&
-            products.map((p) => {
-              return (
-                <Grid container item spacing={3}>
-                  <div className="each_product">
-                    <img
-                      className="category-image"
-                      src={p.image}
-                      alt="cat"
-                    ></img>
-                    <Link to={`/product/${p._id}`}>
-                      <div style={{ cursor: 'pointer' }}>{p.name}</div>
-                    </Link>
-                    <div>{p.description}</div>
-                    <div>${p.price}</div>
-                    <button>Add to cart</button>
-                  </div>
-                </Grid>
-              );
-            })}
-        </Grid>
-      </div>
+      <Link to={'/'} style={{ textDecoration: 'none' }}>
+        <strong className="category-name">
+          <img src="/image/arrow.png" alt="arr" className="arrow" />
+          Home Page
+        </strong>
+      </Link>
+      <h1 className="title">Our Products</h1>
+      <Grid container spacing={2}>
+        {category && (
+          <>
+            <Grid item xs={6}>
+              <h1 className="name">
+                {category.name}
+                <div className="desc">{category.description}</div>
+              </h1>
+            </Grid>
+            <Grid item xs={6}>
+              <div>
+                <img
+                  className="category-image"
+                  src={category.image}
+                  alt="cat"
+                  style={{ height: '500px', width: '600px' }}
+                ></img>
+              </div>
+            </Grid>
+          </>
+        )}
+      </Grid>
+      <Grid container spacing={2}>
+        {products &&
+          products.map((p) => {
+            return (
+              <Grid item xs={12} md={6} lg={4} className="section">
+                <div className="each-product">
+                  <img className="category-image" src={p.image} alt="cat"></img>
+                  <Link
+                    to={`/product/${p._id}`}
+                    style={{ textDecoration: 'none' }}
+                  >
+                    <h3 style={{ cursor: 'pointer' }}>{p.name}</h3>
+                  </Link>
+                  <div>{p.description}</div>
+                  <div>Price : ${p.price}</div>
+                  <ColorButton>Add to cart</ColorButton>
+                </div>
+              </Grid>
+            );
+          })}
+      </Grid>
     </div>
   );
 };

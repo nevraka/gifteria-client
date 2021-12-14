@@ -1,0 +1,14 @@
+.home {
+  text-align: center;
+}
+.detai-price {
+  font-size: large;
+}
+.category-name {
+  padding: 10px 0 0 20px;
+  font-size: larger;
+}
+.arrow {
+  height: 20px;
+  padding-right: 5px;
+}

@@ -1,6 +1,11 @@
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect } from 'react';
 import { API_URL } from '../config';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import './productdetails.css';
+import { purple } from '@mui/material/colors';
+import { styled } from '@mui/material/styles';
+import Button from '@mui/material/Button';
+import { Link } from 'react-router-dom';
 
 import axios from 'axios';
 
@@ -19,19 +24,38 @@ const ProductDetails = ({ handleAddToCart }) => {
     getData();
   }, [productId]);
 
+  const ColorButton = styled(Button)(({ theme }) => ({
+    color: theme.palette.getContrastText(purple[500]),
+    backgroundColor: purple[500],
+    '&:hover': {
+      backgroundColor: purple[700],
+    },
+    borderRadius: '10px',
+  }));
+
   return (
     <div>
-      <div className="title">{productDetail.name}</div>
+      <Link
+        to={`/category/${productDetail.category && productDetail.category._id}`}
+        style={{ textDecoration: 'none' }}
+      >
+        <strong className="category-name">
+          <img src="/image/arrow.png" alt="arr" className="arrow" />
+          {productDetail.category && productDetail.category.name}
+        </strong>
+      </Link>
+      <h1 className="title">{productDetail.name}</h1>
       <div>
         <div className="home">
           <img
             className="category-image"
             src={productDetail.image}
             alt="cat"
+            style={{ height: '400px', width: '600px' }}
           ></img>
-          <div>{productDetail.description}</div>
-          <div>${productDetail.price}</div>
-          <button onClick={handleAddToCart}>Add to cart</button>
+          <div className="detai-price">{productDetail.description}</div>
+          <div className="detai-price">Price : ${productDetail.price}</div>
+          <ColorButton onClick={handleAddToCart}>Add to cart</ColorButton>
         </div>
       </div>
     </div>

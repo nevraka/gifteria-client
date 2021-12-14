@@ -1,4 +1,14 @@
-.each_product {
-  border: 1px solid black;
-  margin: 5px;
+.each-product {
+  margin: 10px;
+  padding: 5px;
+  border-radius: 5%;
+}
+.name {
+  font-size: 30px;
+  font-weight: 900;
+  padding: 10px;
+}
+.desc {
+  font-size: 20px;
+  font-weight: 300;
 }
