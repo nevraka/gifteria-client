@@ -11,14 +11,14 @@ const HomePage = () => {
   const { categories } = useContext(UserContext);
 
   const ColorButton = styled(Button)(({ theme }) => ({
-    color: theme.palette.getContrastText(green[500]),
+    fontWeight: '600',
     backgroundColor: green[500],
     color: 'white',
     '&:hover': {
       backgroundColor: green[700],
     },
     padding: '10px',
-    marginTop: '5px',
+    marginTop: '10px',
   }));
   return (
     <div style={{ padding: 20 }}>

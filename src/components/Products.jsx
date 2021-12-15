@@ -10,8 +10,9 @@ import './products.css';
 import { orange } from '@mui/material/colors';
 import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
+import { Spinner } from 'react-bootstrap';
 
-const HomePage = () => {
+const Products = ({ handleAddToCart }) => {
   const [products, setProducts] = useState([]);
   const { categories } = useContext(UserContext);
   const { categoryId } = useParams();
@@ -28,10 +29,14 @@ const HomePage = () => {
     getData();
   }, [categoryId]);
 
+  if (!products) {
+    return <Spinner animation="grow" variant="dark" />;
+  }
+
   const category = categories.find((c) => c._id === categoryId);
 
   const ColorButton = styled(Button)(({ theme }) => ({
-    color: theme.palette.getContrastText(orange[500]),
+    fontWeight: '600',
     backgroundColor: orange[500],
     color: 'white',
     '&:hover': {
@@ -39,7 +44,7 @@ const HomePage = () => {
     },
     borderRadius: '10px',
     padding: '10px',
-    marginTop: '5px',
+    marginTop: '10px',
   }));
   return (
     <div>
@@ -87,7 +92,9 @@ const HomePage = () => {
                   </Link>
                   <div>{p.description}</div>
                   <div>Price : ${p.price}</div>
-                  <ColorButton>Add to cart</ColorButton>
+                  <ColorButton onClick={() => handleAddToCart(p._id)}>
+                    Add to cart
+                  </ColorButton>
                 </div>
               </Grid>
             );
@@ -97,4 +104,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default Products;

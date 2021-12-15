@@ -6,6 +6,7 @@ import { purple } from '@mui/material/colors';
 import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom';
+import { Spinner } from 'react-bootstrap';
 
 import axios from 'axios';
 
@@ -24,16 +25,20 @@ const ProductDetails = ({ handleAddToCart }) => {
     getData();
   }, [productId]);
 
+  if (!productDetail) {
+    return <Spinner animation="grow" variant="dark" />;
+  }
+
   const ColorButton = styled(Button)(({ theme }) => ({
-    color: theme.palette.getContrastText(purple[500]),
     color: 'white',
+    fontWeight: '600',
     backgroundColor: purple[500],
     '&:hover': {
       backgroundColor: purple[700],
     },
     borderRadius: '10px',
     padding: '10px',
-    marginTop: '5px',
+    marginTop: '10px',
   }));
 
   return (
@@ -58,7 +63,9 @@ const ProductDetails = ({ handleAddToCart }) => {
           ></img>
           <div className="detai-price">{productDetail.description}</div>
           <div className="detai-price">Price : ${productDetail.price}</div>
-          <ColorButton onClick={handleAddToCart}>Add to cart</ColorButton>
+          <ColorButton onClick={() => handleAddToCart(productId)}>
+            Add to cart
+          </ColorButton>
         </div>
       </div>
     </div>
