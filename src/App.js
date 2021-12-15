@@ -12,12 +12,13 @@ import NotFound from './components/NotFound';
 import { UserContext } from './context/app.context';
 import { API_URL } from './config';
 import axios from 'axios';
+import { Spinner } from 'react-bootstrap';
 
 function App() {
   const { user, setUser, setCart } = useContext(UserContext);
   const navigate = useNavigate();
-  const [myError, setMyError] = useState(null);
   const [fetchingUser, setFetchingUser] = useState(null);
+  const [myError, setMyError] = useState();
 
   //we make the user requst here to know if the user is logged in or not
   useEffect(() => {
@@ -77,7 +78,7 @@ function App() {
   };
 
   if (fetchingUser) {
-    return <p>Loading user info</p>;
+    return <Spinner animation="grow" variant="dark" />;
   }
 
   return (
@@ -91,7 +92,7 @@ function App() {
         ></Route>
         <Route
           path="/signin"
-          element={<SignIn setMyError={setMyError} />}
+          element={<SignIn myError={myError} setMyError={setMyError} />}
         ></Route>
         <Route path="/signup" element={<SignUp />}></Route>
         <Route path="/products" element={<Products />}></Route>

@@ -26,10 +26,19 @@ const Cart = ({ handleDelete, handleEdit }) => {
     return <Spinner animation="grow" variant="dark" />;
   }
 
+  if (!cart) {
+    return <Spinner animation="grow" variant="dark" />;
+  }
+
+  const total = cart.reduce((acc, item) => {
+    return acc + item.quantity * item.product.price;
+  }, 0);
+
   return (
     <div>
       <div className="profile">
-        <div>{user && user.name}'s Profile</div>
+        <h1>{user && user.name}'s Profile</h1>
+        <div className="total">Total Payment: ${total.toString()}</div>
       </div>
       <div class="gifts">
         <div>
@@ -41,10 +50,9 @@ const Cart = ({ handleDelete, handleEdit }) => {
                 }
                 console.log(c);
                 return (
-                  <>
-                    <div className="information">
+                  <div className="information">
+                    <div>
                       <h3>{c.product.name}</h3>
-
                       <p>Total: ${(c.quantity * c.product.price).toFixed(2)}</p>
                       <div className="buttons">
                         <button
@@ -83,7 +91,7 @@ const Cart = ({ handleDelete, handleEdit }) => {
                         alt={c.product.name}
                       />
                     </div>
-                  </>
+                  </div>
                 );
               })}
           </Stack>

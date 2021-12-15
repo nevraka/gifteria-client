@@ -15,7 +15,7 @@ import { UserContext } from '../context/app.context';
 
 const theme = createTheme();
 
-const SignIn = ({ setMyError }) => {
+const SignIn = ({ myError, setMyError }) => {
   const navigate = useNavigate();
   const { setUser } = useContext(UserContext);
 
@@ -31,13 +31,13 @@ const SignIn = ({ setMyError }) => {
         withCredentials: true,
       });
       setUser(response.data);
+      navigate('/');
     } catch (err) {
       console.log(err.response);
       setMyError(err.response.data.error);
     }
   };
 
-  navigate('/');
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
@@ -66,7 +66,6 @@ const SignIn = ({ setMyError }) => {
               id="email"
               label="Email Address"
               name="email"
-              // autoComplete="email"
               autoFocus
             />
             <TextField
@@ -77,10 +76,9 @@ const SignIn = ({ setMyError }) => {
               label="Password"
               type="password"
               id="password"
-              // autoComplete="current-password"
-              // helperText={myError ? myError : ''}
-              // error={myError ? true : false}
-            />
+              helperText={myError ? myError : ''}
+              error={myError ? true : false}
+            ></TextField>
             <Button
               type="submit"
               fullWidth

@@ -1,12 +1,25 @@
 .profile {
   display: flex;
   justify-content: center;
+  align-items: center;
 }
-
+.total {
+  padding-left: 100px;
+  font-size: x-large;
+}
 .cart-image {
   height: 300px;
 }
 .gifts {
   display: flex;
   justify-content: center;
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.buttons button {
+  cursor: pointer;
 }

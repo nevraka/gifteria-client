@@ -12,7 +12,6 @@ const Header = () => {
   const handleLogout = async () => {
     await axios.post(`${API_URL}/signout`, {}, { withCredentials: true });
     setUser(null);
-    navigate('/');
   };
 
   return (
