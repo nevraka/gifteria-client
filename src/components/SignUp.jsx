@@ -6,7 +6,6 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-// import {Container, Typography, Box} from '@mui/material'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -14,7 +13,7 @@ import { API_URL } from '../config';
 
 const theme = createTheme();
 
-function SignUp(props) {
+function SignUp() {
   const navigate = useNavigate();
 
   const handleSignUp = async (e) => {
