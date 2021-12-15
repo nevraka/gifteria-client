@@ -23,14 +23,16 @@ const Header = () => {
         </Link>
         <div className="b-name">Gifteria</div>
         <div>
-          <div>
-            <Link
-              style={{ textDecoration: 'none', paddingRight: '10px' }}
-              to="/cart"
-            >
-              {user ? `${user.name}'s Cart` : 'Cart'}
-            </Link>
-          </div>
+          {user ? (
+            <div>
+              <Link
+                style={{ textDecoration: 'none', paddingRight: '10px' }}
+                to="/cart"
+              >
+                {user ? `${user.name}'s Cart` : 'Cart'}
+              </Link>
+            </div>
+          ) : null}
           {user ? (
             <Link style={{ textDecoration: 'none' }} to="/">
               <div
