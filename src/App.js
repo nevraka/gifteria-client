@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import SignUp from './components/SignUp';
 import SignIn from './components/SignIn';
@@ -8,26 +8,87 @@ import Footer from './components/Footer';
 import Cart from './components/Cart';
 import Products from './components/Products';
 import ProductDetails from './components/ProductDetails';
+import NotFound from './components/NotFound';
 import { UserContext } from './context/app.context';
+import { API_URL } from './config';
+import axios from 'axios';
 
 function App() {
-  const { user } = useContext(UserContext);
+  const { user, setUser, setCart } = useContext(UserContext);
   const navigate = useNavigate();
   const [myError, setMyError] = useState(null);
+  const [fetchingUser, setFetchingUser] = useState(null);
 
-  const handleAddToCart = () => {
-    if (!user) {
-      navigate('/signup');
+  //we make the user requst here to know if the user is logged in or not
+  useEffect(() => {
+    const getUserData = async () => {
+      try {
+        setFetchingUser(true);
+        let userResponse = await axios.get(`${API_URL}/user`, {
+          withCredentials: true,
+        });
+        setFetchingUser(false);
+        setUser(userResponse.data);
+      } catch (err) {
+        // the request will fail if the user is not logged in
+        setFetchingUser(false);
+      }
+    };
+    getUserData();
+  }, []);
+
+  const handleAddToCart = async (productId) => {
+    if (user) {
+      let response = await axios.post(
+        `${API_URL}/cart`,
+        { productId },
+        { withCredentials: true }
+      );
+      setCart(response.data);
     } else {
-      navigate('/cart');
+      navigate('/signin');
+    }
+    navigate('/cart');
+  };
+
+  const handleDelete = async (productId) => {
+    if (user) {
+      let response = await axios.delete(`${API_URL}/cart`, {
+        data: { productId },
+        withCredentials: true,
+      });
+      setCart(response.data);
+    } else {
+      navigate('/signin');
     }
   };
+
+  const handleEdit = async (productId, quantity) => {
+    if (user) {
+      let response = await axios.put(
+        `${API_URL}/cart`,
+        { productId, quantity },
+        { withCredentials: true }
+      );
+      setCart(response.data);
+    } else {
+      navigate('/signin');
+    }
+  };
+
+  if (fetchingUser) {
+    return <p>Loading user info</p>;
+  }
 
   return (
     <div className="App">
       <Header />
       <Routes>
-        <Route path="/cart" element={<Cart />}></Route>
+        <Route path="*" element={<NotFound />} />
+        <Route
+          path="/cart"
+          element={<Cart handleDelete={handleDelete} handleEdit={handleEdit} />}
+        ></Route>
         <Route
           path="/signin"
           element={<SignIn setMyError={setMyError} />}

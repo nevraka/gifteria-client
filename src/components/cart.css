@@ -1,0 +1,12 @@
+.profile {
+  display: flex;
+  justify-content: center;
+}
+
+.cart-image {
+  height: 300px;
+}
+.gifts {
+  display: flex;
+  justify-content: center;
+}
