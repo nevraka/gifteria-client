@@ -6,7 +6,7 @@ const NotFound = () => {
       <div>
         <h1> Page not found!</h1>
       </div>
-      <img src="./image/404.png" alt="404"></img>
+      <img src="/image/notfound.png" alt="404"></img>
     </div>
   );
 };

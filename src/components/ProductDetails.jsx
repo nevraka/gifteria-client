@@ -6,7 +6,7 @@ import { purple } from '@mui/material/colors';
 import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom';
-import { Spinner } from 'react-bootstrap';
+import CircularProgress from '@mui/material/CircularProgress';
 
 import axios from 'axios';
 
@@ -26,7 +26,7 @@ const ProductDetails = ({ handleAddToCart }) => {
   }, [productId]);
 
   if (!productDetail) {
-    return <Spinner animation="grow" variant="dark" />;
+    return <CircularProgress color="secondary" />;
   }
 
   const ColorButton = styled(Button)(({ theme }) => ({

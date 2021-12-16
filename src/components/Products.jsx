@@ -10,10 +10,10 @@ import './products.css';
 import { orange } from '@mui/material/colors';
 import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
-import { Spinner } from 'react-bootstrap';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const Products = ({ handleAddToCart }) => {
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState(null);
   const { categories } = useContext(UserContext);
   const { categoryId } = useParams();
 
@@ -30,7 +30,7 @@ const Products = ({ handleAddToCart }) => {
   }, [categoryId]);
 
   if (!products) {
-    return <Spinner animation="grow" variant="dark" />;
+    return <CircularProgress color="secondary" />;
   }
 
   const category = categories.find((c) => c._id === categoryId);

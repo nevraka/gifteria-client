@@ -4,7 +4,7 @@ import { UserContext } from '../context/app.context';
 import { API_URL } from '../config.js';
 import Stack from '@mui/material/Stack';
 import './cart.css';
-import { Spinner } from 'react-bootstrap';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const Cart = ({ handleDelete, handleEdit }) => {
   const { user, cart, setCart } = useContext(UserContext);
@@ -23,11 +23,11 @@ const Cart = ({ handleDelete, handleEdit }) => {
   }, [user]);
 
   if (!user) {
-    return <Spinner animation="grow" variant="dark" />;
+    return <CircularProgress color="secondary" />;
   }
 
   if (!cart) {
-    return <Spinner animation="grow" variant="dark" />;
+    return <CircularProgress color="secondary" />;
   }
 
   const total = cart.reduce((acc, item) => {

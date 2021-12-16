@@ -12,7 +12,7 @@ import NotFound from './components/NotFound';
 import { UserContext } from './context/app.context';
 import { API_URL } from './config';
 import axios from 'axios';
-import { Spinner } from 'react-bootstrap';
+import CircularProgress from '@mui/material/CircularProgress';
 
 function App() {
   const { user, setUser, setCart } = useContext(UserContext);
@@ -49,7 +49,6 @@ function App() {
     } else {
       navigate('/signin');
     }
-    navigate('/cart');
   };
 
   const handleDelete = async (productId) => {
@@ -78,7 +77,7 @@ function App() {
   };
 
   if (fetchingUser) {
-    return <Spinner animation="grow" variant="dark" />;
+    return <CircularProgress color="secondary" />;
   }
 
   return (
